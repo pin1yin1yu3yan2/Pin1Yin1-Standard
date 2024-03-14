@@ -6,7 +6,7 @@
 
 1. Primitive Types
 
-    | Type Name | Description | Type Data | Real Data | Chinese | English | 
+    | Type Name | Description | Type Data | Real Data | Chinese | English |
     | --- | --- | --- | --- | --- | --- |
     | `zheng3` | integer type, default to be signed 32-bit width | 114 | 114 | 整数 | integer |
     | `fu2` |  float type, default to be 32-bit width | 1f14 | 1.14 | 浮点数 | floating-point |
@@ -28,7 +28,7 @@
 
         `zi4` could be defind via `wen2`:  `zi4 d deng3 wen2 x fen1` represents `char d = 'x'`
 
-        `_s` symbolizes space (` `): `zi4 k deng3 wen2 _s fen1` means `char k = ' '`
+        `_s` symbolizes space (``): `zi4 k deng3 wen2 _s fen1` means `char k = ' '`
 
         `_t` and `_n` are equal to `\t`, `\n` in cpp, others are so, too
 
@@ -37,13 +37,13 @@
         `zu3 zi4` can be defind via `chuan4`: `zu3 zi4 dd deng3 chuan4 tiansuohaoer` indicates `char[] dd = "tiansuohaoer"`
 
         `_u*` (which * represents two-digits to eight-digits hexadecimal number) provides **UNICODE support** to char string
-    
+
     4. `bu4`
 
         there are two constants: `zhen1` and `jia3` (`true` and `false`)
 
     > you can use bian4 to let the compiler inference the type, eg:
-    > 
+    >
     > * `bian4 aaa deng3 a` means `auto aaa = a`
 
 2. Basic Extend Words
@@ -55,38 +55,45 @@
     | `you3fu2` | define signed integer | 有符号 | signed | `you3fu2 zheng3 n` |
     | `wu2fu2` | define unsigned integer | 无符号 | unsigned |`wu2fu2 zheng3 a` |
     | `yin3` | define a reference  | 引用 | reference | `yin3 bian4 aaa` |
-    | `you4yin3` | define a right value reference  | 右值引用 | reference | `you4yin3 bian4 bbb` |
-    | `she4` | define a const | 设 | reference | `she4 zheng3 x` |
     | `zhi3` | defince a pointer | 指针 | pointer | `zhi3 zheng3 x` |
-    
-    
+    | `she4` | define a const | 设 | const | `she4 zheng3 x` |
+
     1. `zu3`
         you can specify the number of elements in the array by writing `zu3 n`, n is a `wu2fu2 zheng3`
-         
+
+        `zu3` means a array contain datas with type right, `zhi3` and `yin3` are so, too
+
+        > `zu3 114514 fu2` means `float[111454]`
+
         you can alse just use `zu3` to let compiler inference the size automatically
- 
+
     2. `you3fu2` and `wu2fu2`
         `you3fu2` and `wu2fu2` can only be used for `zheng3`
 
     3. `kuan1`
         `kuan1` can only be used for `Primitive Types`
-         
+
         width can only be 16,32 and 64 for `fu2`, and for `zheng3`, it can alse be 128
-        
+
         for complex type:
         * `xu1 a kuan 64` mean the real part 7and the imag part   are both 32-bit width
-         
+
         * the maximum width of `xu1` is 128(both real and imag parts are 64-bit width)
-    
+
     4. `yin3`, `you4yin3`
         `yin3` symbolizes `&` in cpp
-
-        `you4yin3` symbolizes `&&` in cpp
 
     5. `zhi3`
         `zhi3` refers to `*` in cpp
 
+    6. `she3`
+        can only be used at most once in the leftmost in a type declare
+
+        define a constant
+
     example of using many extend words together: `zu3 114514 kuan1 32 wu2fu2 yin3 zheng3 a` means `unsigend int a[114514]&` in cpp
+
+    > Extend words like `zu3` `yin3` and `zhi3` can be used in a type declare many time
 
 3. Advance Extend Words
 
@@ -134,55 +141,55 @@
 
 1. Algebra Operators
 
-    | Keyword Name | Description | Chinese | Symbol |
-    | --- | --- | --- | --- |
-    | `jia1` | add | 加 | + |
-    | `jian3` | min | 减 | - |
-    | `cheng2` | mul | 乘 | * |
-    | `chu2` | div | 除 | / |
-    | `mo2` | mod | 取模 | % |
-    | `mi4` | pow | 幂 | pow() |
-    | `dui4` | log | 对数 | log() |
+    | Keyword Name | Description | Chinese | Symbol | Priority |
+    | --- | --- | --- | --- | --- |
+    | `jia1` | add | 加 | + | 6 |
+    | `jian3` | min | 减 | - | 6 |
+    | `cheng2` | mul | 乘 | * | 5 |
+    | `chu2` | div | 除 | / | 5 |
+    | `mo2` | mod | 取模 | % | 5 |
+    | `mi4` | pow | 幂 | pow() | 4 (?) |
+    | `dui4` | log | 对数 | log() | 4 (?) |
 
 2. Compare Operators
 
-    | Keyword Name | Description | Chinese | Symbol |
-    | --- | --- | --- | --- |
-    | `tong2` | equal to| 同 | == |
-    | `fei1tong2` | not equal to | 非同 | != |
-    | `da4` | greater than| 大于 | > |
-    | `xiao3` | lesser | 小于 | < |
-    | `da4deng3` | greater than or equal to| 大于等于 | >= |
-    | `xiao3deng3` | less than or equal to| 小于等于 | <= |
+    | Keyword Name | Description | Chinese | Symbol | Priority |
+    | --- | --- | --- | --- | --- |
+    | `tong2` | equal to| 同 | == | 10 |
+    | `fei1tong2` | not equal to | 非同 | != | 10 |
+    | `da4` | greater than| 大于 | > | 8 |
+    | `xiao3` | lesser | 小于 | < | 8 |
+    | `da4deng3` | greater than or equal to| 大于等于 | >= | 8 |
+    | `xiao3deng3` | less than or equal to| 小于等于 | <= | 8 |
 
 3. Logic Operators
 
-    | Keyword Name | Description | Chinese | Symbol |
-    | --- | --- | --- | --- |
-    | `yu3` | and | 且 | && |
-    | `huo4` | or | 或 | \|\| |
-    | `fei1` | not | 非 | ! |
+    | Keyword Name | Description | Chinese | Symbol | Priority |
+    | --- | --- | --- | --- | --- |
+    | `yu3` | and | 且 | && | 14 |
+    | `huo4` | or | 或 | \|\| | 15 |
+    | `fei1` | not | 非 | ! | 3|
 
 4. Arithmetic Operators
 
-    | Keyword Name | Description | Chinese | Symbol |
-    | --- | --- | --- | --- |
-    | `wei4yu3` | bitwise and | 逐位与 | & |
-    | `wei4huo4` | bitwise or | 逐位或 | \| |
-    | `wei4fei1` | bitwise not | 逐位非 | ! |
-    | `wei4yi4huo4` | bitwise xor | 逐位异或 | ^ |
-    | `zuo3yi2` | bitwise left shift | 逐位左移 | << |
-    | `you4yi2` | bitwise right shift | 逐位右移 | >> |
+    | Keyword Name | Description | Chinese | Symbol | Priority |
+    | --- | --- | --- | --- | --- |
+    | `wei4yu3` | bitwise and | 逐位与 | & | 11 |
+    | `wei4huo4` | bitwise or | 逐位或 | \| | 13 |
+    | `wei4fei1` | bitwise not | 逐位非 | ! | 3 |
+    | `wei4yi4huo4` | bitwise xor | 逐位异或 | ^ | 12 |
+    | `zuo3yi2` | bitwise left shift | 逐位左移 | << | 7 |
+    | `you4yi2` | bitwise right shift | 逐位右移 | >> | 7|
 
 5. Special Operators
 
-    | Keyword Name | Description | Chinese | Symbol |
-    | --- | --- | --- | --- |
-    | `qu3zhi3` | get address | 取地址 | & |
-    | `fang3zhi3` | access address | 访问地址 | * |
-    | `fang3su4` | access element by address | 从地址访问元素 | -> |
-    | `zhuan3` | type conversion | 类型转换 | () |
-    | `chang2du4` | get size | 获取长度 | sizeof |
+    | Keyword Name | Description | Chinese | Symbol | Priority |
+    | --- | --- | --- | --- | --- |
+    | `qu3zhi3` | get address | 取地址 | & | 3 |
+    | `fang3zhi3` | access address | 访问地址 | * | 3 |
+    | `fang3su4` | access element by address | 从地址访问元素 | -> | 2 |
+    | `zhuan3` | type conversion | 类型转换 | () | 2 |
+    | `chang2du4` | get size | 获取长度 | sizeof | 3 |
 
 ### Preprocess
 
